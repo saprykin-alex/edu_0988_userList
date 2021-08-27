@@ -2,6 +2,7 @@ package com.example.secondapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,13 +31,19 @@ public class UserInfoActivity extends AppCompatActivity {
                 // Открываем активность для редактирования пользователя
                 // На активность нужно передать данные пользователя (Используйте сериализацию)
                 // На активности реализуем возможность изменить данные пользователя
+                Intent intent=new Intent(UserInfoActivity.this, AddUserActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
             }
         });
         deleteUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Реализовать удаление пользователя
+                Users users = new Users(UserInfoActivity.this);
+                users.deleteUser(user.getUuid());
                 // Возврат на главный экран
+                onBackPressed();
             }
         });
     }

@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.secondapp.database.UserBaseHelper;
 import com.example.secondapp.database.UserDbSchema;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -21,15 +25,35 @@ public class Users {
     }
 
     public void addUser(User user){
+        try {
+            URL url = new URL("http://a98598l8.beget.tech/public_html/handlerAddUser.php");
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+/*
         ContentValues values = getContentValues(user);
         database.insert(UserDbSchema.UserTable.NAME, null, values);
+*/
     }
 
     public void updateUser(User user){
         // Реализуем изменение данных
+        ContentValues values = getContentValues(user);
+        String stringUuid = user.getUuid().toString();
+        database.update(UserDbSchema.UserTable.NAME,
+                values,
+                UserDbSchema.Cols.UUID+"=?",
+                new String[]{stringUuid});
     }
     public void deleteUser(UUID uuid){
         // Отправляем запрос на удаление пользователя по его UUID
+        String stringUuid = uuid.toString();
+        database.delete(UserDbSchema.UserTable.NAME,
+                UserDbSchema.Cols.UUID+"=?",
+                new String[]{stringUuid});
     }
 
     private static ContentValues getContentValues(User user){
