@@ -24,8 +24,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Fragment fragment = new UserListFragment();
-        fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
+        fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment, "main_fragment").commit();
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        Fragment currentFragment = fragmentManager.findFragmentByTag("main_fragment");
+        if(currentFragment!= null && currentFragment.isVisible()){
+            super.onBackPressed();
+        }else {
+            Fragment fragment = new UserListFragment();
+            fragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment, "main_fragment");
+        }
     }
 
     public static void changeFragment(View view, User user){

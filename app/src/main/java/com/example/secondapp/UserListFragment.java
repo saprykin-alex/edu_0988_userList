@@ -66,10 +66,10 @@ public class UserListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-//            Intent intent = new Intent(getContext(), UserInfoActivity.class);
+            Intent intent = new Intent(getContext(), UserInfoActivity.class);
 //            intent.putExtra("user", user);
-//            startActivity(intent);
-            MainActivity.changeFragment(view, user);
+            startActivity(intent);
+//            MainActivity.changeFragment(view, user);
         }
     }
 
