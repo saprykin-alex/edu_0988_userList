@@ -31,37 +31,37 @@ public class Users {
         ContentValues values = getContentValues(user);
         database.insert(UserDbSchema.UserTable.NAME, null, values);
 */
-        String host = "http://0988.vozhzhaev.ru/handlerAddUser.php";
-        host=host+"?name="+user.getUserName()+"&lastname="+user.getUserLastName()+"&phone="+user.getPhone()+"&uuid="+user.getUuid();
-        String finalHost = host;
-        System.out.println("!!!host: " + host);
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(finalHost);
-                    System.out.println("!!!URL: " + url);
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    System.out.println("!!!urlConnection: " + urlConnection.toString());
-                    InputStream is = urlConnection.getInputStream();
-                    System.out.println("!!!InputStream: " + is.toString());
-                    InputStreamReader reader = new InputStreamReader(is);
-                    System.out.println("!!!InputStreamReader: " + reader.toString());
-                    int i;
-                    StringBuilder result = new StringBuilder();
-                    System.out.println("!!!StringBuilder: " + result.toString());
-                    while ((i = reader.read()) != -1) {
-                        result.append((char) i);
-                    }
-                    System.out.println(result);
-                } catch (IOException e) {
-                    System.out.println("!!!Error!!!");
-                    e.printStackTrace();
-                }
-            }
-        };
-            Thread t = new Thread(runnable);
-            t.start();
+//        String host = "http://0988.vozhzhaev.ru/handlerAddUser.php";
+//        host=host+"?name="+user.getUserName()+"&lastname="+user.getUserLastName()+"&phone="+user.getPhone()+"&uuid="+user.getUuid();
+//        String finalHost = host;
+//        System.out.println("!!!host: " + host);
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    URL url = new URL(finalHost);
+//                    System.out.println("!!!URL: " + url);
+//                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//                    System.out.println("!!!urlConnection: " + urlConnection.toString());
+//                    InputStream is = urlConnection.getInputStream();
+//                    System.out.println("!!!InputStream: " + is.toString());
+//                    InputStreamReader reader = new InputStreamReader(is);
+//                    System.out.println("!!!InputStreamReader: " + reader.toString());
+//                    int i;
+//                    StringBuilder result = new StringBuilder();
+//                    System.out.println("!!!StringBuilder: " + result.toString());
+//                    while ((i = reader.read()) != -1) {
+//                        result.append((char) i);
+//                    }
+//                    System.out.println(result);
+//                } catch (IOException e) {
+//                    System.out.println("!!!Error!!!");
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+//            Thread t = new Thread(runnable);
+//            t.start();
     }
 
     public void updateUser(User user){

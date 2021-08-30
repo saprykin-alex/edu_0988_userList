@@ -22,28 +22,24 @@ public class UserListFragment extends Fragment {
     Button addUserBtn;
     ArrayList<User> userList = new ArrayList<>();
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        /*for (int i = 0; i < 100; i++) {
-            User user = new User();
-            user.setUserName("Пользователь "+i);
-            user.setUserLastName("Фамилия "+i);
-            userList.add(user);
-        }*/
-        addUserBtn = findViewById(R.id.addUserBtn);
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+        View view = layoutInflater.inflate(R.layout.fragment_user_list, viewGroup, false);
+        addUserBtn = view.findViewById(R.id.addUserBtn);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         addUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddUserActivity.class);
+                Intent intent = new Intent(getContext(), AddUserActivity.class);
                 startActivity(intent);
             }
         });
+        return view;
     }
     private void recyclerViewInit(){
-        Users users = new Users(MainActivity.this);
+        Users users = new Users(getActivity());
         userList = users.getUserList();
         userAdapter = new UserAdapter(userList);
         recyclerView.setAdapter(userAdapter);
@@ -70,9 +66,10 @@ public class UserListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
-            intent.putExtra("user", user);
-            startActivity(intent);
+//            Intent intent = new Intent(getContext(), UserInfoActivity.class);
+//            intent.putExtra("user", user);
+//            startActivity(intent);
+            MainActivity.changeFragment(view, user);
         }
     }
 
@@ -85,7 +82,7 @@ public class UserListFragment extends Fragment {
 
         @Override
         public UserHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
             return new UserHolder(inflater, parent);
         }
 
